@@ -22,13 +22,13 @@ def index(request):
 def dashboard(request):
     users = User.objects.all()
     active_users = User.objects.all().filter(is_active=True)
-    companies = Team.objects.all()
+    teams = Team.objects.all()
     projects = Project.objects.all()
     tasks = Task.objects.all()
     context = {
         'users': users,
         'active_users': active_users,
-        'companies': companies,
+        'teams': teams,
         'projects': projects,
         'tasks': tasks,
     }
