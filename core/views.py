@@ -11,7 +11,7 @@ from register.models import Team
 from register.models import Project
 from register.models import UserProfile
 from projects.models import Task
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -19,6 +19,7 @@ def index(request):
     return render(request, 'core/index.html')
 
 
+@login_required
 def dashboard(request):
     users = User.objects.all()
     active_users = User.objects.all().filter(is_active=True)

@@ -129,9 +129,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/' # Included upload images
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'core/media') # Included upload images
-print(MEDIA_ROOT)
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/login/'
+
+MEDIA_URL = '/media/'  # Included upload images
+MEDIA_ROOT = os.path.join(BASE_DIR, 'core/media')  # Included upload images
 
 # Heroku configs
 if os.getcwd() == '/app':
@@ -152,10 +154,3 @@ if os.getcwd() == '/app':
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
     )
-
-
-
-
-
-
-
