@@ -46,7 +46,7 @@ class Task(models.Model):
     task_name = models.CharField(max_length=80)
     status = models.CharField(max_length=7, choices=status, default=1)
     due = models.CharField(max_length=7, choices=due, default=1)
-    description = models.CharField()
+    description = models.CharField(max_length=2000)
     add_date = models.DateField(auto_now_add=True)
     upd_date = models.DateField(auto_now_add=True)
 
