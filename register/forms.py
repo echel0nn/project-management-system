@@ -1,12 +1,13 @@
 from django import forms
-from register.models import Company as Comp
+from register.models import Team
 from register.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(label='E-mail', required=True)
-    company = forms.ModelChoiceField(queryset=Comp.objects.all())
+    team = forms.ModelChoiceField(queryset=Team.objects.all())
 
     class Meta:
         model = User
@@ -15,7 +16,7 @@ class RegistrationForm(UserCreationForm):
             'first_name',
             'last_name',
             'email',
-            'company',
+            'team',
             'password1',
             'password2',
         }
@@ -23,7 +24,7 @@ class RegistrationForm(UserCreationForm):
         labels = {
             'first_name': 'Name',
             'last_name': 'Last Name',
-            'company': 'Company',
+            'team': 'Team',
         }
 
     def save(self, commit=True):
@@ -32,11 +33,12 @@ class RegistrationForm(UserCreationForm):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
-        company = self.cleaned_data['company']
+        team = self.cleaned_data['team']
 
         if commit:
             user.save()
-            user_profile = UserProfile.objects.create(user=user, company=Comp.objects.get(name=company))
+            user_profile = UserProfile.objects.create(
+                user=user, team=Team.objects.get(name=team))
             user_profile.save()
 
         return user
@@ -55,10 +57,10 @@ class RegistrationForm(UserCreationForm):
         self.fields['password1'].widget.attrs['placeholder'] = 'Password'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['placeholder'] = 'Retype Password'
-        self.fields['company'].widget.attrs['class'] = 'form-control'
+        self.fields['team'].widget.attrs['class'] = 'form-control'
 
 
-class CompanyRegistrationForm(forms.Form):
+class TeamRegistrationForm(forms.Form):
     social_name = forms.CharField(max_length=80)
     name = forms.CharField(max_length=80)
     email = forms.EmailField()
@@ -66,23 +68,21 @@ class CompanyRegistrationForm(forms.Form):
     found_date = forms.DateField()
 
     class Meta:
-        model = Comp
-
+        model = Team
 
     def save(self, commit=True):
-        company = Comp()
-        company.social_name = self.cleaned_data['social_name']
-        company.name = self.cleaned_data['name']
-        company.email = self.cleaned_data['email']
-        company.city = self.cleaned_data['city']
-        company.found_date = self.cleaned_data['found_date']
+        team = Team()
+        team.social_name = self.cleaned_data['social_name']
+        team.name = self.cleaned_data['name']
+        team.email = self.cleaned_data['email']
+        team.city = self.cleaned_data['city']
+        team.found_date = self.cleaned_data['found_date']
 
         if commit:
-            company.save()
-
+            team.save()
 
     def __init__(self, *args, **kwargs):
-        super(CompanyRegistrationForm, self).__init__(*args, **kwargs)
+        super(TeamRegistrationForm, self).__init__(*args, **kwargs)
         self.fields['social_name'].widget.attrs['class'] = 'form-control'
         self.fields['social_name'].widget.attrs['placeholder'] = 'Social Name'
         self.fields['name'].widget.attrs['class'] = 'form-control'
@@ -97,6 +97,7 @@ class CompanyRegistrationForm(forms.Form):
 
 class ProfilePictureForm(forms.Form):
     img = forms.ImageField()
+
     class Meta:
         model = UserProfile
         fields = ['img']

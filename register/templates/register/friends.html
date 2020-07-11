@@ -29,7 +29,7 @@
                                   <small class="text-muted float-right mt-1">Last login: {{ friend.user.last_login|date:"H:i" }} in {{ friend.user.last_login|date:"d/m" }}</small>
                                     {% endif %}
                                 </div>
-                                <div class="text-truncate font-weight-bold">{{ friend.company }}</div>
+                                <div class="text-truncate font-weight-bold">{{ friend.team}}</div>
                                 {% if friend.user.project_set.all %}
                                 <em class="text-muted">Projects that {{ friend.user.first_name }} is working:</em>
                                 <small class="text-muted">

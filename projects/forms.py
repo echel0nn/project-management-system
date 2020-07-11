@@ -2,7 +2,7 @@ from django import forms
 from django.utils.text import slugify
 from .models import Task
 from .models import Project
-from register.models import Company
+from register.models import Team
 from django.contrib.auth.models import User
 
 status = (
@@ -68,7 +68,7 @@ class ProjectRegistrationForm(forms.ModelForm):
     efforts = forms.DurationField()
     status = forms.ChoiceField(choices=status)
     dead_line = forms.DateField()
-    company = forms.ModelChoiceField(queryset=Company.objects.all())
+    team = forms.ModelChoiceField(queryset=Team.objects.all())
     complete_per = forms.FloatField(min_value=0, max_value=100)
     description = forms.CharField(widget=forms.Textarea)
 
@@ -83,7 +83,7 @@ class ProjectRegistrationForm(forms.ModelForm):
         Project.efforts = self.cleaned_data['efforts']
         Project.status = self.cleaned_data['status']
         Project.dead_line = self.cleaned_data['dead_line']
-        Project.company = self.cleaned_data['company']
+        Project.team = self.cleaned_data['team']
         Project.complete_per = self.cleaned_data['complete_per']
         Project.description = self.cleaned_data['description']
         Project.slug = slugify(str(self.cleaned_data['name']))
@@ -108,8 +108,8 @@ class ProjectRegistrationForm(forms.ModelForm):
         self.fields['status'].widget.attrs['placeholder'] = 'Status'
         self.fields['dead_line'].widget.attrs['class'] = 'form-control'
         self.fields['dead_line'].widget.attrs['placeholder'] = 'Dead Line, type a date'
-        self.fields['company'].widget.attrs['class'] = 'form-control'
-        self.fields['company'].widget.attrs['placeholder'] = 'Company'
+        self.fields['team'].widget.attrs['class'] = 'form-control'
+        self.fields['team'].widget.attrs['placeholder'] = 'team'
         self.fields['complete_per'].widget.attrs['class'] = 'form-control'
         self.fields['complete_per'].widget.attrs['placeholder'] = 'Complete %'
         self.fields['description'].widget.attrs['class'] = 'form-control'

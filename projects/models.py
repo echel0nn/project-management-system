@@ -16,6 +16,8 @@ due = (
 )
 
 # Create your models here.
+
+
 class Project(models.Model):
     name = models.CharField(max_length=80)
     slug = models.SlugField('shortcut', blank=True)
@@ -23,8 +25,9 @@ class Project(models.Model):
     efforts = models.DurationField()
     status = models.CharField(max_length=7, choices=status, default=1)
     dead_line = models.DateField()
-    company = models.ForeignKey('register.Company', on_delete=models.CASCADE)
-    complete_per = models.FloatField(max_length=2, validators = [MinValueValidator(0), MaxValueValidator(100)])
+    team = models.ForeignKey('register.Team', on_delete=models.CASCADE)
+    complete_per = models.FloatField(max_length=2, validators=[
+                                     MinValueValidator(0), MaxValueValidator(100)])
     description = models.TextField(blank=True)
 
     add_date = models.DateField(auto_now_add=True)
@@ -43,6 +46,9 @@ class Task(models.Model):
     task_name = models.CharField(max_length=80)
     status = models.CharField(max_length=7, choices=status, default=1)
     due = models.CharField(max_length=7, choices=due, default=1)
+    description = models.CharField()
+    add_date = models.DateField(auto_now_add=True)
+    upd_date = models.DateField(auto_now_add=True)
 
     class Meta:
         ordering = ['project', 'task_name']

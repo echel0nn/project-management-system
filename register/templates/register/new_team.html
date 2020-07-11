@@ -3,8 +3,8 @@
 
 {% block breadcrumb %}
         <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Company</li>
-        <li class="breadcrumb-item active">New Company</li>
+        <li class="breadcrumb-item">Team</li>
+        <li class="breadcrumb-item active">New Team</li>
 {% endblock breadcrumb%}
 
 
@@ -23,13 +23,13 @@
                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                   </button>
-                                  Congratulations, your company was created!
+                                  Congratulations, your team was created!
                               </div>
                             {% endif %}
                             <form method="post" action="">
                                 {% csrf_token %}
                                 <h1>Register</h1>
-                                <p class="text-muted">Set up your company registration here</p>
+                                <p class="text-muted">Set up your team registration here</p>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-append">

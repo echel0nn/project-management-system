@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from projects.models import Project
 
 # Create your models here.
-class Company(models.Model):
+
+
+class Team(models.Model):
     social_name = models.CharField(max_length=80)
     name = models.CharField(max_length=80)
     email = models.EmailField()
@@ -11,19 +13,21 @@ class Company(models.Model):
     found_date = models.DateField()
 
     class Meta:
-        verbose_name_plural = 'Companies'
+        verbose_name_plural = 'Teams'
         ordering = ('name',)
-
 
     def __str__(self):
         return (self.name)
 
+
 class UserProfile(models.Model):
-    user    = models.ForeignKey(User, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
     project = models.ManyToManyField(Project, blank=True)
     friends = models.ManyToManyField('self', blank=True)
-    img    = models.ImageField(upload_to='core/avatar', blank=True, default='core/avatar/blank_profile.png')
+    img = models.ImageField(upload_to='core/avatar',
+                            blank=True,
+                            default='core/avatar/blank_profile.png')
 
     def __str__(self):
         return (str(self.user))
@@ -39,10 +43,11 @@ class UserProfile(models.Model):
         self.friends.remove(friend)
 
 
-
 class Invite(models.Model):
-    inviter = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='made_invites')
-    invited = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='received_invites')
+    inviter = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='made_invites')
+    invited = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name='received_invites')
 
     def accept(self):
         self.invited.friends.add(self.inviter)

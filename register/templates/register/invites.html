@@ -21,7 +21,7 @@
                     <th class="text-center"><i class="fa fa-user"></i></th>
                     <th>User</th>
                     <th>Add / Delete</th>
-                    <th>Company</th>
+                    <th>Team</th>
                     <th class="text-center">Friends*</th>
                     <th>Activity</th>
                 </tr>
@@ -51,7 +51,7 @@
                                 <a href="{% url 'register:delete-invite' invite_id=invite.id %}" class="badge badge-danger text-white">Remove invite</a>
                             </td>
                             <td>
-                                {{ invite.inviter.company }}
+                                {{ invite.inviter.team}}
                             </td>
                             <td class="text-center">
                                 <span class="badge badge-pill badge-dark">{{ invite.inviter.user.task_set.values.count }} ***</span>

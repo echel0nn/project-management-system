@@ -38,7 +38,7 @@
                                     <ul class="mt-4 mx-5">
                                         <h5>Personal info:</h5>
                                         <li><span>Name:</span> {{ user_view.user.get_full_name }}</li>
-                                        <li><span>Company:</span> {{ user_view.company }}</li>
+                                        <li><span>Team:</span> {{ user_view.team}}</li>
                                         <li><span>E-mail:</span> {{ user_view.user.email}}</li>
                                         <li><span>Last login:</span> {{ user_view.user.last_login }}</li>
                                         <li><span>Date joined:</span> {{ user_view.user.date_joined }}</li>
@@ -77,7 +77,7 @@
                                           <small class="text-muted float-right mt-1">Last login: {{ user_view.user.last_login|date:"H:i" }} in {{ user_view.user.last_login|date:"d/m" }}</small>
                                             {% endif %}
                                         </div>
-                                        <div class="text-truncate font-weight-bold">{{ user_view.company }}</div>
+                                        <div class="text-truncate font-weight-bold">{{ user_view.team}}</div>
                                         {% if user_view.user.project_set %}
                                         <em class="text-muted">Projects that {{ user_view.user.first_name }} is working:</em>
                                         <small class="text-muted">
